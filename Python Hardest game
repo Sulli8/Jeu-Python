@@ -1,0 +1,796 @@
+nom_fichier="/Users/lotus/Desktop/niveau1.txt"
+pixel=100
+
+
+def affiche_menu1():
+    cree_fenetre(1200,800)
+    rectangle(1200, 800, 0, 0,
+              couleur='black', remplissage='blue', epaisseur=1, tag='')
+    texte(600, 330, "Puissance 4", couleur = 'yellow', ancrage = 'center', taille = 80,tag='p')
+    t=0
+    while t!=100:
+        t+=1
+        i=0+t
+        texte(640,600,"%", couleur="yellow",
+        ancrage='center',police='Helvetica', taille=24, tag='b')
+        texte(1100,700,"Chargement ...", couleur="yellow",
+        ancrage='center',police='Helvetica', taille=24, tag='b')
+        
+        texte(600,600,i, couleur="yellow",
+        ancrage='center',police='Helvetica', taille=24, tag='b')
+        
+        attente(0.2)
+        efface('b')
+        mise_a_jour()
+    barre_progression()
+    
+
+    return t
+                    
+    
+def affiche_menu():  
+    g=0
+    while g>=0:
+    
+        
+        if g%2==0:
+            texte(600, 330, "Puissance 4", couleur = 'yellow', ancrage = 'center', taille = 80,tag='p')
+            attente(1)
+            efface('p')
+            g+=1
+          
+        else:
+            texte(600, 330, "Puissance 4", couleur = 'red', ancrage = 'center', taille = 100,tag='p')
+            attente(1)
+            efface('p')
+            g+=1
+            
+            
+            
+def barre_progression():
+    t=0
+ 
+
+    while True:
+        p=0
+        t+=1
+        i=0+t
+        rectangle(350, 425, 600+i, 475, remplissage="yellow",tag='g')
+        mise_a_jour()
+        if i == 250:
+            efface('g')
+            texte(600, 500, "Chargement terminé!", couleur = 'red', ancrage = 'center', taille = 24,tag='l')
+            attente(1)
+            efface('l')
+            break
+            
+        
+    
+def affiche_jeu():
+    cree_fenetre(1200, 800)
+    rectangle(800, 800, 0, 0,
+              couleur='black', remplissage='blue', epaisseur=1, tag='')
+    rectangle(860, 225, 1140, 275, remplissage = 'light grey')
+    texte(1000, 250, "Mode Solo", couleur = 'black', ancrage = 'center', taille = 22)
+    rectangle(860, 325, 1140, 375, remplissage = 'light grey')
+    texte(1000, 350, "Solution des grilles", couleur = 'black', ancrage = 'center', taille = 22)
+    rectangle(860, 425, 1140, 475, remplissage = 'light grey')
+    texte(1000, 450, "Règles du jeu", couleur = 'black', ancrage = 'center', taille = 22)
+    rectangle(860, 525, 1140, 575, remplissage = 'light grey')
+    texte(1000, 550, "Quitter", couleur = 'black', ancrage = 'center', taille = 22)
+    cercle(950, 150, 50, couleur='black', remplissage='red', epaisseur=1, tag='')
+    cercle(1090, 150, 50, couleur='black', remplissage='yellow', epaisseur=1, tag='')
+    texte(900, 50, 'Joueur 1 :',
+        couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='')
+    texte(1050, 50, 'Joueur 2 :',
+          couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='')
+
+
+
+
+
+def case_vers_pixel(case):
+    """fonction prenant en argument une variable case et renvoyant des coordonnées i,j en pixel"""
+
+    i, j = case
+    return (i + .5) * pixel, (j + .5) * pixel
+
+
+#Division des coordonnées du cliquer gauche 
+def pixel_vers_case(x, y) :
+    """fonction prenant en argument des coordonnées x, y et renvoyant ces coordonnées en case"""
+    return (x // pixel-.5) ,(y // pixel-.5)
+    
+    
+    
+
+def lire_grille(nom_fichier):
+    """fonction prenant en argument une chaîne de caractères nom_fichier
+et renvoyant une liste de listes décrivant les valeurs des cellules de la grille"""
+    
+    grille = []
+    fichier = open(nom_fichier, 'r')
+    
+    for ligne in fichier: #Parcours du fichier 
+        cell = ligne[:len(ligne)-1] #Afccetation de variable 
+        hitori = []
+        for i in range(0, len(cell),2): #Paroucurs de la variable cell
+            hitori.append(int(cell[i])) #Ajout de la ligne à la liste hitori
+        grille.append(hitori)
+    fichier.close()
+    
+    for elem in range(len(grille)-1):
+        if len(grille[elem]) != len(grille[elem + 1]):
+            print("La grille n'a pas été chargée'")
+            return None
+    
+    return grille
+    
+print(lire_grille(nom_fichier))
+
+grille=lire_grille(nom_fichier)
+
+def afficher_grille(grille):
+    """fonction prenant en argument une liste de listes représentant une grille,
+et l’affichant joliment sur le terminal"""
+    for cell in grille: #Parcours de la grille 
+        for elem in cell: 
+            print(elem, end=' ') #Affcihage des lignes 
+        print()
+        
+    return str("La grille est affichée")
+    
+print((afficher_grille(grille)))
+
+
+def affiche_puissance4(grille):
+    for i in range(len(grille)):
+        for j in range(len(grille[i])):
+            if grille[i][j]== 1:
+                cercle(100,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,100, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+            if grille[i][j]==2:
+                cercle(100,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,200, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+            if grille[i][j]==3:
+                cercle(100,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,300, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+            if grille[i][j]==4:
+                cercle(100,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,400, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+            if grille[i][j]==5:
+                cercle(100,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,500, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+            if grille[i][j]== 6:
+                cercle(100,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,600, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+            if grille[i][j]==7:
+                cercle(100,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(200,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(300,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(400,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(500,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(600,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+                cercle(700,700, 50, couleur='black', remplissage='white', epaisseur=1, tag='')
+              
+#Victoire des joueurs sur les lignes du plateau 
+victoire_ligne1 = [(100.0,100.0),(200.0,100.0),(300.0,100.0),(400.0,100.0)]
+
+w = (100.0,100.0)
+x = (200.0,100.0)
+y = (300.0,100.0)
+z = (400.0,100.0)
+
+
+victoire2_ligne1 = [(400.0,100.0),(500.0,100.0),(600.0,100.0),(700.0,100.0)]
+w1 = (400.0,100.0)
+x1 = (500.0,100.0)
+y1 = (600.0,100.0)
+z1 = (700.0,100.0)
+
+victoire_ligne2 =[(100.0,200.0),(200.0,200.0),(300.0,200.0),(400.0,200.0)]
+a = (100.0,200.0)
+b = (200.0,200.0)
+c = (300.0,200.0)
+d = (400.0,200.0)
+
+victoire2_ligne2= [(400.0,200.0),(500.0,200.0),(600.0,200.0),(700.0,200.0)]
+a1 = (400.0,200.0)
+b1 = (500.0,200.0)
+c1 = (600.0,200.0)
+d1 = (700.0,200.0)
+
+victoire_ligne3 =[(100.0,300.0),(200.0,300.0),(300.0,300.0),(400.0,300.0)]
+e = (100.0,300.0)
+f = (200.0,300.0)
+g = (300.0,300.0)
+h = (400.0,300.0)
+
+victoire2_ligne3 = [(400.0,300.0),(500.0,300.0),(600.0,300.0),(700.0,300.0)]
+e1 = (400.0,300.0)
+f1 = (500.0,300.0)
+g1 = (600.0,300.0)
+h1 = (700.0,300.0)
+
+victoire_ligne4 =[(100.0,400.0),(200.0,400.0),(300.0,400.0),(400.0,400.0)]
+i = (100.0,400.0)
+j = (200.0,400.0)
+k = (300.0,400.0)
+l = (400.0,400.0)
+
+victoire2_ligne4 =[(400.0,400.0),(500.0,400.0),(600.0,400.0),(700.0,400.0)]
+i1 = (400.0,400.0)
+j1 = (500.0,400.0)
+k1 = (600.0,400.0)
+l1 = (700.0,400.0)
+
+victoire_ligne5 =[(100.0,500.0),(200.0,500.0),(300.0,500.0),(400.0,500.0)]
+m = (100.0,500.0)
+n = (200.0,500.0)
+o = (300.0,500.0)
+p = (400.0,500.0)
+
+victoire2_ligne5 = [(400.0,500.0),(500.0,500.0),(600.0,500.0),(700.0,500.0)]
+m1 = (400.0,500.0)
+n1 = (500.0,500.0)
+o1 = (600.0,600.0)
+p1 = (700.0,600.0)
+
+victoire_ligne6 = [(100.0,600.0),(200.0,600.0),(300.0,600.0),(400.0,600.0)]
+q = (100.0,600.0)
+r = (200.0,600.0)
+s = (300.0,600.0)
+t = (400.0,600.0)
+
+victoire2_ligne6 = [(400.0,600.0),(500.0,600.0),(600.0,600.0),(700.0,600.0)]
+q1 = (400.0,600.0)
+r1 = (500.0,600.0)
+s1 = (600.0,600.0)
+t1 = (700.0,600.0)
+
+victoire_ligne7 =[(100.0,700.0),(200.0,700.0),(300.0,700.0),(400.0,700.0)]
+a2 = (100.0,700.0)
+b2 = (200.0,700.0)
+c2 = (300.0,700.0)
+d2 = (400.0,700.0)
+
+victoire2_ligne7 = [(400.0,700.0),(500.0,700.0),(600.0,700.0),(700.0,700.0)]
+e2 = (400.0,700.0)
+f2 = (500.0,700.0)
+g2 = (600.0,700.0)
+h2 = (700.0,700.0)
+
+#Victoire des joueurs sur les colonnes 
+
+victoire_colonne1 = [(100.0,100.0),(100.0,200.0),(100.0,300.0),(100.0,400.0)]
+a3 = (100.0,100.0)
+b3 = (100.0,200.0),
+c3 = (100.0,300.0)
+d3 = (100.0,400.0)
+victoire2_colonne1 = [(100.0,400.0),(100.0,500.0),(100.0,600.0),(100.0,700.0)]
+
+e3 = (100.0,400.0)
+f3 = (100.0,500.0)
+g3 = (100.0,600.0)
+h3 = (100.0,700.0)
+
+victoire_colonne2 = [(200.0,100.0),(200.0,200.0),(200.0,300.0),(200.0,400.0)]
+i3 = (200.0,100.0)
+j3 = (200.0,200.0)
+k3 = (200.0,300.0)
+l3 = (200.0,400.0)
+victoire2_colonne2 = [(200.0,400.0),(200.0,500.0),(200.0,600.0),(200.0,700.0)]
+
+m3 = (200.0,400.0)
+n3 = (200.0,500.0)
+o3 = (200.0,600.0)
+p3 = (200.0,700.0)
+
+victoire_colonne3 = [(300.0,100.0),(300.0,200.0),(300.0,300.0),(300.0,400.0)]
+q3 = (300.0,100.0)
+r3 = (300.0,200.0)
+s3 = (300.0,300.0)
+t3 = (300.0,400.0)
+victoire2_colonne3= [(300.0,400.0),(300.0,500.0),(300.0,600.0),(300.0,700.0)]
+u3 = (300.0,400.0)
+v3 = (300.0,500.0)
+w3 = (300.0,600.0)
+x3 = (300.0,700.0)
+victoire_colonne4 = [(400.0,100.0),(400.0,200.0),(400.0,300.0),(400.0,400.0)]
+a4 = (400.0,100.0)
+b4 = (400.0,200.0)
+c4 = (400.0,300.0)
+d4 = (400.0,400.0)
+victoire2_colonne4 = [(400.0,400.0),(400.0,500.0),(400.0,600.0),(400.0,700.0)]
+e4 = (400.0,400.0)
+f4 = (400.0,500.0)
+g4 = (400.0,600.0)
+h4 = (400.0,700.0)
+victoire_colonne5 = [(500.0,100.0),(500.0,200.0),(500.0,300.0),(500.0,400.0)]
+i4 = (500.0,100.0)
+j4 = (500.0,200.0)
+k4 = (500.0,300.0)
+l4 = (500.0,400.0)
+victoire2_colonne5 = [(500.0,400.0),(500.0,500.0),(500.0,600.0),(500.0,700.0)]
+m4 = (500.0,400.0)
+n4 = (500.0,500.0)
+o4 = (500.0,600.0)
+p4 = (500.0,700.0)
+victoire_colonne6 = [(600.0,100.0),(600.0,200.0),(600.0,300.0),(600.0,400.0)]
+q4 = (600.0,100.0)
+r4 = (600.0,200.0)
+s4 = (600.0,300.0)
+t4 = (600.0,400.0)
+
+
+victoire2_colonne6 = [(600.0,400.0),(600.0,500.0),(600.0,600.0),(600.0,700.0)]
+u4 = (600.0,400.0)
+v4 = (600.0,500.0)
+w4 = (600.0,600.0)
+x4 = (600.0,700.0)
+
+victoire_colonne7 = [(700.0,100.0),(700.0,200.0),(700.0,300.0),(700.0,400.0)]
+a5 = (700.0,100.0)
+b5 = (700.0,200.0)
+c5 = (700.0,300.0)
+d5 = (700.0,400.0)
+victoire2_colonne7 = [(700.0,400.0),(700.0,500.0),(700.0,600.0),(700.0,700.0)]
+e5 = (700.0,400.0)
+f5 = (700.0,500.0)
+g5 = (700.0,600.0)
+h5 = (700.0,700.0)
+
+#Victoire des joueurs sur les diagonales du plateau
+victoire_diagonale = [(400.0,100.0),(300.0,200.0),(200.0,300.0),(100.0,400.0)]
+
+
+W = (400.0,100.0)
+X = (300.0,200.0)
+Y = (200.0,300.0)
+Z = (100.0,400.0)
+victoire2_diagonale = [(100.0,400.0),(200.0,300.0),(300.0,200.0),(400.0,100.0)]
+
+A = (100.0,400.0)
+B = (200.0,300.0)
+C = (300.0,200.0)
+D = (400.0,100.0)
+
+victoire_diagonale2 = [(500.0,100.0),(400.0,200.0),(300.0,300.0),(200.0,400.0)]
+
+E = (500.0,100.0)
+F =  (400.0,200.0)
+G = (300.0,300.0)
+H = (200.0,400.0)
+victoire2_diagonales2 = [(100.0,500.0),(200.0,400.0),(300.0,300.0),(400.0,200.0)]
+
+I = (100.0,500.0)
+J = (200.0,400.0)
+K = (300.0,300.0)
+L = (400.0,200.0)
+
+victoire_diagonale3 = [(600.0,100.0),(500.0,200.0),(400.0,300.0),(300.0,400.0)]
+
+O = (600.0,100.0)
+P = (500.0,200.0)
+Q = (400.0,300.0)
+R = (300.0,400.0)
+victoire2_diagonale3 = [(100.0,600.0),(200.0,500.0),(300.0,400.0),(400.0,300.0)]
+
+S = (100.0,600.0) 
+T = (200.0,500.0)
+U = (300.0,400.0)
+V = (400.0,300.0)
+ 
+victoire_diagonale4 = [(700.0,100.0),(600.0,200.0),(500.0,300.0),(400.0,400.0)]
+
+A1 = (700.0,100.0)
+B1 = (600.0,200.0)
+C1 = (500.0,300.0)
+D1 = (400.0,400.0)
+victoire2_diagonale4 = [(100.0,700.0),(200.0,600.0),(300.0,500.0),(400.0,400.0)]
+
+A2 = (100.0,700.0)
+B2 = (200.0,600.0)
+C2 = (300.0,500.0)
+D2 = (400.0,400.0)
+
+victoire_diagonale5 = [(700.0,200.0),(600.0,300.0),(500.0,400.0),(400.0,500.0)]
+
+A3 = (700.0,200.0)
+B3 = (600.0,300.0)
+C3 = (500.0,400.0)
+D3 = (400.0,500.0)
+victoire_diagonales5 = [(200.0,700.0),(300.0,600.0),(400.0,500.0),(500.0,400.0)]
+
+A4 = (200.0,700.0)
+B4 = (300.0,600.0)
+C4 = (400.0,500.0)
+D4 = (500.0,400.0)
+
+victoire_diagonale6 = [(700.0,300.0),(600.0,400.0),(500.0,500.0),(400.0,600.0)]
+
+A5 = (700.0,300.0)
+B5 = (600.0,400.0)
+C5 = (500.0,500.0)
+D5 = (400.0,600.0)
+victoire2_diagonale6 = [(300.0,700.0),(400.0,600.0),(500.0,500.0),(600.0,400.0)]
+
+A6 = (300.0,700.0)
+B6 = (400.0,600.0)
+C6 = (500.0,500.0)
+D6 = (600.0,400.0)
+ 
+victoire_diagonale7 = [(400.0,700.0),(500.0,600.0),(600.0,500.0),(700.0,400.0)]
+
+A7 = (400.0,700.0)
+B7 = (500.0,600.0)
+C7 = (600.0,500.0)
+D7 = (700.0,400.0)
+victoire2_diagonale7 = [(700.0,400.0),(600.0,500.0),(500.0,600.0),(400.0,700.0)]
+
+A8 = (700.0,400.0)
+B8 = (600.0,500.0)
+C8 = (500.0,600.0)
+D8 = (400.0,700.0)
+
+
+
+
+
+def clic_plateau():
+            victoire= []
+            victoire2= []
+            i=0
+            while i>=0:
+                mise_a_jour()
+                ev = donne_ev() #Récupération de l'évènement 
+                ty = type_ev(ev)
+                if ty == 'ClicDroit':
+                    efface('cercle')#Effacement du tag cercle 
+                    victoire = []
+                    victoire2 = []
+                    mise_a_jour()
+        
+                
+                if ty == 'ClicGauche':
+                    mise_a_jour()
+                    i= abscisse(ev)
+                    j=ordonnee(ev)
+                    x,y= pixel_vers_case(i,j)
+                    a,b = case_vers_pixel((x,y))
+                    
+                    
+                    if i%2==0:
+                        mise_a_jour()
+                        victoire.append((a,b))
+                        print(victoire,'joueur jaune')
+                        
+                        
+                        if victoire == victoire2_diagonale or A and  B and  C and D in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        
+                        
+                        if victoire == victoire_diagonale or W and  X and  Y and Z in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                            
+                        if victoire == victoire_ligne1 or w and x and y and z in victoire :
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne1 or w1 and x1 and y1 and z1 in victoire :
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire_ligne2 or a and b and c and d in victoire :
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne2 or a1 and b1 and c1 and d1 in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire_ligne3 or e and f and g and h in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne3 or e1 and f1 and g1 and h1 in victoire :
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire_ligne4 or i and  j and  k and l in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne4 or i1 and  j1 and k1 and  l1 in victoire :
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire_ligne5 or m and n and o and p in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne5 or m1 and n1 and o1 and p1 in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire_ligne6 or q and r and s and t in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne6 or q1 and r1 and s1 and t1 in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire_ligne7 or a2 and b2 and c2 and d2 in victoire :
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire == victoire2_ligne7 or e2 and f2 and g2 and h2 in victoire:
+                            texte(300, 400,"Le joueur jaune a gagné ! ",couleur='yellow', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                            
+                        
+                        cercle(a, b, 50, couleur='black', remplissage='yellow', epaisseur=1, tag='cercle')
+                        texte(900, 100,"C'est au joueur suivant !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        mise_a_jour()
+                        i+=1
+                   
+               
+                            
+                
+                    else:
+                        mise_a_jour()
+                        victoire2.append((a,b))
+                        print(victoire2,'joueur rouge')
+                        if victoire2 == victoire_ligne1 or w and x and y and z in victoire : 
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne1 or w1 and x1 and y1 and z1 in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire_ligne2 or a and b and c and d in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne2 or a1 and b1 and c1 and d1 in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire_ligne3 or e and f and g and h in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne3 or e1 and f1 and g1 and h1 in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire_ligne4 or i and  j and  k and l in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne4 or i1 and  j1 and k1 and  l1 in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire_ligne5 or m and n and o and p in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne5 or m1 and n1 and o1 and p1 in victoire:
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire_ligne6 or q and r and s and t in victoire:
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne6 or q1 and r1 and s1 and t1 in victoire:
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire_ligne7 or a2 and b2 and c2 and d2 in victoire :
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        if victoire2 == victoire2_ligne7 or e2 and f2 and g2 and h2 in victoire:
+                            texte(300, 400,"Le joueur rouge a gagné ! ",couleur='red', ancrage='nw', police='Helvetica', taille=40, tag='titre')
+                            attente(1)
+                            ferme_fenetre()
+                            break 
+                        cercle(a, b, 50, couleur='black', remplissage='red', epaisseur=1, tag='cercle')
+                        texte(900, 100,"C'est au joueur suivant !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        mise_a_jour()
+                        i+=1
+                        
+                    if a<100 and b<800:
+                        texte(840, 100,"Vous êtes en dehors du plateau !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        efface('cercle')
+                        victoire = []
+                        victoire2 = []
+                        mise_a_jour()
+                        
+                        
+                    if 650<=a<=700 and b<100:
+                        texte(840, 100,"Vous êtes en dehors du plateau !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        efface('cercle')
+                        victoire = []
+                        victoire2 = []
+                        mise_a_jour()
+                    if 800<=a<=900 and b<400:
+                        texte(900, 100,"Vous êtes en dehors du plateau !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        efface('cercle')
+                        victoire = []
+                        victoire2 = []
+                        mise_a_jour()
+                        
+                    if 900<=a<=1000 and b<200:
+                        texte(900, 100,"Vous êtes en dehors du plateau !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        efface('cercle')
+                        victoire = []
+                        victoire2 = []
+                        mise_a_jour()
+                        
+                    if 1000<=a <=1100 and b<480:
+                        victoire = []
+                        victoire2 = []
+                        mise_a_jour()
+                        efface('cercle')
+                        ferme_fenetre()
+                        regle()
+                        
+                    if 1000<=a <=1044 and b<700:
+                      
+                        texte(900, 100,"Vous avez quitté la partie !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='t')
+                        attente(1)
+                        efface('t')
+                        break
+                    if 800<=a<=900 and b<=800:
+                       
+                        efface('cercle')
+                        texte(900, 100,"Vous êtes en dehors du plateau !",couleur='black', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+                        attente(1)
+                        efface('titre')
+                        efface('cercle')
+                        victoire = []
+                        victoire2 = []
+                        mise_a_jour()
+                        
+                    
+                    
+                       
+                        
+                        
+                    
+def regle():
+    cree_fenetre(1200,800)
+    rectangle(1200, 800, 0, 0,
+              couleur='black', remplissage='blue', epaisseur=1, tag='')   
+    
+    texte(50, 150,"Règle du jeu :",couleur='white', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+    texte(50,200,"Le but du jeu est d'aligner une suite de 4 pions de même couleur sur une grille comptant 6 rangées et 7 \n colonnes.\n Chaque joueur dispose de 21 pions d'une couleur (par convention, en général jaune ou rouge).\n Tour à tour, \n les deux joueurs placent un pion dans la colonne de leur choix, \n le pion coulisse alors jusqu'à la position la plus basse possible dans la dite colonne à la suite\n de quoi c'est à l'adversaire de jouer.\n Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) \nconsécutif d'au moins quatre pions de sa couleur.\n Si, alors que toutes les cases de la grille de jeu sont remplies,\n aucun des deux joueurs n'a réalisé un tel alignement,\n la partie est déclarée nulle.",couleur='white', ancrage='nw', police='Helvetica', taille=24, tag='titre')
+    
+    texte(900, 700,"Créateur: Sullivan Sextius",couleur='white', ancrage='nw', police='Helvetica', taille=20, tag='titre')
+    rectangle(400, 625,600, 675, remplissage = 'light grey')
+    texte(500, 650, "Retour", couleur = 'black', ancrage = 'center', taille = 22)
+    
+    
+    u,i=attend_clic_gauche()
+    s,q=case_vers_pixel((u,i))
+    z,c=pixel_vers_case(s,q)
+    if z<600 and c<700:
+        ferme_fenetre()
+
+        affiche_jeu()
+        affiche_puissance4(grille)
+        clic_plateau()
+        efface('cercle')
+        victoire = []
+        victoire2 = []
+        mise_a_jour()
+        
+    p=0
+    while p>=0:
+        if p%2==0:
+              texte(600, 50, "Puissance 4", couleur = 'yellow', ancrage = 'center', taille = 80,tag='p')
+              attente(1)
+              efface('p')
+              p+=1
+        else:
+              texte(600, 50, "Puissance 4", couleur = 'red', ancrage = 'center', taille = 100,tag='p')
+              attente(1)
+              efface('p')
+              p+=1
+            
+    
+                        
+
+
+if __name__ == '__main__':
+    affiche_menu1()
+    while True:
+        victoire=[]
+        victoire2= []
+        ferme_fenetre()
+        affiche_jeu()
+        affiche_puissance4(grille)
+        clic_plateau()
+        attend_ev()
+    
