@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title> Sen Sanitas  </title>
+<link rel="stylesheet" type="text/css" href="formulaire1.css" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+</style>
+
+<body>
+
+<div>
+<h1 style="color:white; "></h1>
+<h2 style="color:white;"> Sen Sanitas </h2>
+
+</div>
+<div class="boite" style="background-color:rgba(255,255,255,0.30); border-radius:15px; height:540px;">
+<form method="post" action="formulaire1.php">
+
+  <div>
+    <label for="pseudo"> Nom<span>*</span></label>
+    <input type="text" name="nom" placeholder="Nom"></input>
+    </div>
+
+
+    <div>
+      <label for="pseudo"> Prénom<span>*</span></label>
+      <input type="text" name="prenom" placeholder="Prénom"></input>
+      </div>
+
+
+      <div>
+        <label for="pseudo" > E-mail<span>*</span></label>
+        <input type="email" name="Adresse_mail" placeholder="E-mail"></input>
+        </div>
+
+
+        <div>
+          <label for="pseudo" > Téléphone </label>
+          <input type="tel" name="telephone" placeholder="Téléphone"></input>
+          </div>
+
+
+<div>
+  <label for="pseudo" > Mot de passe<span>*</span></label>
+  <input type="password" name="mdp" placeholder="Mot de passe" minlength="8"></input>
+
+
+  </div>
+
+<div>
+  <label for="pseudo" > Confirmation de mot de passe<span>*</span></label>
+  <input type="password" name="mdp1" placeholder="Confirmation de mot de passe" minlength="8"></input>
+
+  </div>
+
+
+
+  <input type="submit" value="Envoyer" />
+   </form>
+</div>
+</body>
+</html>
