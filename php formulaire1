@@ -1,0 +1,132 @@
+<?php 
+
+
+
+$nom = $_POST["nom"];
+$prenom = $_POST["prenom"];
+$E_mail = $_POST["Adresse_mail"];
+$telephone = $_POST["telephone"];
+$Adresse = $_POST["adresse"];
+$Ville = $_POST["ville"];
+$code_postal = $_POST["Code_postal"];
+
+
+
+
+function recapitulatif($nom,$prenom,$E_mail,$telephone,$Adresse,$Ville,$code_postal){
+    
+
+    if(!empty($nom) && !empty($prenom) && !empty($E_mail) && !empty($telephone)  && !empty($Adresse)  && !empty($Ville) && !empty($code_postal)){
+    echo '<link rel="stylesheet" type="text/css" href="formulaire1.css" />';
+    echo '<link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">';
+    echo "<body style='  width:100%;height:450px;
+    background: url(cabane.jpg) center no-repeat ;'>";
+
+ 
+    echo "<div class='boite'>";
+    echo "<div style='width:400px; height:500px;  background-color:rgba(255,255,255,0.30); border-radius:15px;'>";
+
+  echo "<h2 style='color:white; text-align:center ; margin-top:150px;'>";
+echo "Récapitulatif de votre candidature";
+echo "</h2>";
+echo "<h3 style='color:white; text-align:center ; margin-top:50px;'>Nom : $nom</h3>";
+echo "<h3 style='color:white; text-align:center ; '>Prénom : $prenom</h3>";
+echo "<h3 style='color:white; text-align:center ; '>E-mail : $E_mail</h3>";
+echo "<h3 style='color:white; text-align:center ; '>Téléphone : $telephone</h3>";
+echo "<h3 style='color:white; text-align:center ; '>Adresse : $Adresse</h3>";
+echo "<h3 style='color:white; text-align:center ; '>Code Postal : $code_postal</h3>";
+
+echo "<h1 style='color:white; text-align:center ; '>Merci d'avoir postulé(e) pour l'association Sen Sanitas !</h1>";
+
+echo "</div>";
+echo "</div>";
+echo "</body>";
+}
+
+else {
+
+    echo '<!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8"/>
+    <title> Sen Sanitas  </title>
+    <link rel="stylesheet" type="text/css" href="formulaire1.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+    </head>
+    
+    <style>
+    </style>
+    
+    <body>
+    
+    <div>
+    <h1 style="color:white; "></h1>
+    <h2 style="color:white;"> Sen Sanitas </h2>
+    
+    </div>
+    <div class="boite" style="background-color:rgba(255,255,255,0.30); border-radius:15px; height:650px;">
+    <form method="post" action="formulaire.php">
+    
+            <div>
+                <label for="pseudo"> Erreur Votre candidature est invalide  <span>*</span></label>
+                    </div>
+    
+    
+    
+      <div>
+        <label for="pseudo"> Nom<span>*</span></label>
+        <input type="text" name="nom" placeholder="Nom"></input>
+        </div>
+    
+    
+        <div>
+          <label for="pseudo"> Prénom<span>*</span></label>
+          <input type="text" name="prenom" placeholder="Prénom"></input>
+          </div>
+    
+    
+          <div>
+            <label for="pseudo"> E-mail<span>*</span></label>
+            <input type="email" name="Adresse_mail" placeholder="E-mail"></input>
+            </div>
+    
+    
+            <div>
+              <label for="pseudo" > Téléphone </label>
+              <input type="tel" name="telephone" placeholder="Téléphone"></input>
+              </div>
+    
+    
+    <div>
+      <label for="pseudo" > Adresse du domicile<span>*</span></label>
+      <input type="text" name="adresse" placeholder="Adresse du domicile"></input>
+    
+      </div>
+    
+    <div>
+      <label for="pseudo" > Ville<span>*</span></label>
+      <input type="text" name="ville" placeholder="Ville"></input>
+    
+      </div>
+    
+    
+      <div>
+          <label for="pseudo" > Code Postal<span>*</span></label>
+          <input type="number" name="Code_postal" placeholder="Code Postal"></input>
+      </div>
+      <input type="submit" value="Envoyer" />
+       </form>
+    </div>
+    </body>
+    </html>';
+
+}
+
+}
+
+
+
+echo recapitulatif($nom,$prenom,$E_mail,$telephone,$Adresse,$Ville,$code_postal);
+
+
+?>
