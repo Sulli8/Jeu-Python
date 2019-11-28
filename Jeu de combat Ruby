@@ -1,0 +1,303 @@
+class Personne
+  attr_accessor :nom, :points_de_vie, :en_vie
+
+  def initialize(nom)
+    @nom = nom
+    @points_de_vie = 100
+    @en_vie = true
+  end
+
+  def info
+    # A faire:
+    # - Renvoie le nom et les points de vie si la personne est en vie
+    # - Renvoie le nom et "vaincu" si la personne a été vaincue
+    if @points_de_vie >= 0
+      return @nom, @points_de_vie, @en_vie
+    else 
+      return @nom, "vaincu" 
+
+    end 
+  end
+
+  def attaque(personne)
+    # A faire:
+    # - Fait subir des dégats à la personne passée en paramètre
+    # - Affiche ce qu'il s'est passé
+    if personne == "Balrog"
+      puts "Voici les vies de Balrog : #{@points_de_vie}"
+    end 
+
+    if personne == "Goblin"
+       puts "Voici les vies du Goblin : #{@points_de_vie}"
+    end 
+
+    if personne == "Squellette"
+       puts "Voici les vies du Squellette: #{@points_de_vie}"
+    end 
+
+    if personne == "Jean-Michel Paladin"
+      puts "Vous venez de vous faires attaquez voici vos vies actuelles #{@points_de_vie}"
+    end 
+
+  end
+
+  def subit_attaque(degats_recus)
+    # A faire:
+    # - Réduit les points de vie en fonction des dégats reçus
+    if degats_recus == -1
+      puts "Toujours en vie "
+      puts "Balrog a reçus des degâts de : #{degats_recus} Pv"
+      @points_de_vie = degats_recus + @points_de_vie
+    end 
+    if degats_recus == -20
+      puts "Toujours en vie "
+      puts "Le Goblin a reçus des degâts de : #{degats_recus} Pv"
+      @points_de_vie = degats_recus + @points_de_vie
+    end 
+
+
+    if degats_recus == -10
+      puts "Toujours en vie "
+      puts "Le Squellette a reçus des degâts de : #{degats_recus} Pv"
+      @points_de_vie = degats_recus + @points_de_vie
+    end 
+
+    if degats_recus == -5
+      puts "Toujours en vie "
+      puts "Vous avez reçus des degâts par le Goblin de : #{degats_recus} Pv"
+      @points_de_vie = degats_recus + @points_de_vie
+    end 
+    if degats_recus == -15
+      puts "Toujours en vie "
+      puts "Vous avez reçus des degâts par le Squellette de : #{degats_recus} Pv"
+      @points_de_vie = degats_recus + @points_de_vie
+    end 
+
+
+    if degats_recus == -25
+      puts "Toujours en vie "
+      puts "Vous avez reçus des dégâts par Balrog de : #{degats_recus} Pv"
+      @points_de_vie = degats_recus + @points_de_vie
+    end 
+
+    # - Affiche ce qu'il s'est passé
+    # - Détermine si la personne est toujours en_vie ou non
+  end
+end
+
+class Joueur < Personne
+  attr_accessor :degats_bonus
+
+  def initialize(nom)
+    # Par défaut le joueur n'a pas de dégats bonus
+    @degats_bonus = 0
+
+    # Appelle le "initialize" de la classe mère (Personne)
+    super(nom)
+  end
+
+  def degats
+    # A faire:
+    # - Calculer les dégats
+     # - Affiche ce qu'il s'est passé
+    degats = @points_de_vie - degats_recus
+    @points_de_vie = @points_de_vie - degats 
+    puts "Vous avez degats_recus des degâts de - #{degats} Pv"
+    puts "vos points de vie actuelle sont de #{@points_de_vie} Pv"
+   
+  end
+
+  def soin
+    # A faire:
+    # - Gagner de la vie
+    # - Affiche ce qu'il s'est passé
+    @points_de_vie = @points_de_vie + 50 
+    puts "Vous avez gagné des points de vie : #{@points_de_vie} Pv"
+  end
+
+  def ameliorer_degats
+    # A faire:
+    # - Augmenter les dégats bonus
+    # - Affiche ce qu'il s'est passé
+    @degats_bonus = @degats_bonus + 10
+    puts "Vos degats bonus sont de #{@degats_bonus} Pv"
+  end
+end
+
+class Ennemi < Personne
+  def degats
+    # A faire:
+    # - Calculer les dégats
+    if personne == "Balrog"
+      puts "Dégats actuelle de Balrog: #{degats + degats_recus+ @points_de_vie}"
+    end 
+
+    if personne == "Goblin"
+      puts "Dégats actuelle de Balrog: #{degats + degats_recus+ @points_de_vie}"
+    end 
+
+    if personne == "Squellette"
+      puts "Dégats actuelle de Balrog: #{degats + degats_recus+ @points_de_vie}" 
+    end 
+
+
+  end
+end
+
+class Jeu
+  def self.actions_possibles(monde)
+    puts "ACTIONS POSSIBLES :"
+
+    puts "0 - Se soigner"
+    puts "1 - Améliorer son attaque"
+
+    # On commence à 2 car 0 et 1 sont réservés pour les actions
+    # de soin et d'amélioration d'attaque
+    i = 2
+    monde.ennemis.each do |ennemi|
+      puts "#{i} - Attaquer #{ennemi.info}"
+      i = i + 1
+    end
+    puts "99 - Quitter"
+  end
+
+   def self.est_fini(joueur, monde)
+    # A faire:
+    # - Déterminer la condition de fin du jeu
+    game_over = false
+    if (joueur.en_vie == false) || (monde.ennemis_en_vie.size == 0)
+      game_over = true
+    end
+  end
+end
+
+class Monde 
+  attr_accessor :ennemis
+
+  def ennemis_en_vie
+    # A faire:
+    # - Ne retourner que les ennemis en vie
+    array = []
+    ennemis.each do |ennemi|
+      if ennemi.en_vie == true
+        array << ennemi
+      end
+    end
+    return array
+  end
+end
+
+##############
+
+# Initialisation du monde
+monde = Monde.new
+
+# Ajout des ennemis
+monde.ennemis = [
+  Ennemi.new("Balrog"),
+  Ennemi.new("Goblin"),
+  Ennemi.new("Squelette")
+]
+
+
+# Initialisation du joueur
+joueur = Joueur.new("Jean-Michel Paladin")
+
+# Message d'introduction. \n signifie "retour à la ligne"
+puts "\n\nAinsi débutent les aventures de #{joueur.nom}\n\n"
+
+# Boucle de jeu principale
+100.times do |tour|
+  puts "\n------------------ Tour numéro #{tour} ------------------"
+
+  # Affiche les différentes actions possibles
+  Jeu.actions_possibles(monde)
+
+  puts "\nQUELLE ACTION FAIRE ?"
+  # On range dans la variable "choix" ce que l'utilisateur renseigne
+  choix = gets.chomp.to_i
+
+  # En fonction du choix on appelle différentes méthodes sur le joueur
+  if choix == 0
+    joueur.soin
+  elsif choix == 1
+    joueur.ameliorer_degats
+  elsif choix == 99
+    # On quitte la boucle de jeu si on a choisi
+    # 99 qui veut dire "quitter"
+    break
+  else
+    # Choix - 2 car nous avons commencé à compter à partir de 2
+    # car les choix 0 et 1 étaient réservés pour le soin et
+    # l'amélioration d'attaque
+    
+    if choix == 2 
+      ennemi_a_attaquer = monde.ennemis[choix - 2]
+      puts "Vous avez attaqué Balrog"
+      ennemi_a_attaquer = "Balrog"
+      joueur.attaque(ennemi_a_attaquer)
+      monde.ennemis[0].subit_attaque(-1)
+    end 
+      
+
+    if choix == 3
+      ennemi_a_attaquer = "Goblin"
+      puts "Vous avez attaqué le Goblin"
+      joueur.attaque(ennemi_a_attaquer)
+      monde.ennemis[1].subit_attaque(-20)
+    end 
+
+    if choix == 4
+      ennemi_a_attaquer = "Squellette"
+      puts "Vous avez attaqué le Squellette"
+      joueur.attaque(ennemi_a_attaquer)
+      monde.ennemis[2].subit_attaque(-10)
+    end
+  if tour <=10 && joueur.info[1] == "vaincu"
+    puts "Vous avez perdu"
+    break 
+  end 
+
+
+
+
+  end
+  
+  puts "\nLES ENNEMIS RIPOSTENT !"
+  # Pour tous les ennemis en vie ...
+  monde.ennemis.each do |ennemi|
+    # ... le héro subit une attaque.
+    
+    if ennemi.info[0] == "Balrog" && ennemi.info[2]
+      ennemi.attaque(joueur)
+      joueur.subit_attaque(-25)
+    end 
+    if ennemi.info[0] == "Goblin" && ennemi.info[2]
+      joueur.subit_attaque(-5)
+    end 
+    if ennemi.info[0] == "Squellette" && ennemi.info[2]
+      joueur.subit_attaque(-15)
+    end 
+
+  end
+
+  puts "\nEtat du héro: #{joueur.info}\n"
+
+  # Si le jeu est fini, on interompt la boucle
+  break if Jeu.est_fini(joueur, monde)
+end
+
+puts "\nGame Over!\n"
+
+# A faire:
+# - Afficher le résultat de la partie
+
+if joueur.en_vie
+  puts "Vous avez gagné !"
+else
+  puts "Vous avez perdu !"
+end
+
+
+
+
