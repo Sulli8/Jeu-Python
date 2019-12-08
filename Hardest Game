@@ -1,0 +1,361 @@
+from tkinter import *
+from math import *
+import random 
+import time 
+import pygame
+
+# def timer():
+#     second = 60
+#     for i in range(second):
+#         print(second-i)
+#         time.sleep(1)
+# timer()
+    
+
+def menu(event):
+    fen.destroy()
+
+fen = Tk()
+fen.geometry("500x500")
+
+
+canvas = Canvas(fen, width=500, height=500, bg="black")
+
+canvas.create_text(250,200,text="Hardest Game ",fill="red",font=("Courier",45))
+canvas.create_line(70,220,220,220,fill="red")
+canvas.create_line(400,220,220,220,fill="red")
+canvas.create_text(250,250,text="Jouer ",fill="red",font=("Courier",20))
+
+
+canvas.pack()
+
+# chaine = Label(fen)
+canvas.bind("<Button-1>",menu)
+# label.pack()
+
+# chaine.pack()
+class main:
+    fen.mainloop()
+    def main(self):
+        global x,y,cercle,ennemi2,ennemi,cercle1,x5,y5,x1,y1,x2,y2,x3,y3,x4,y4,x6,y6,vitesse1,x8,y8,a,b,c,d
+        x1 = 10
+        y1 = 0
+        x2 = -10
+        y2 = 0
+        x3 = 0
+        y3 = 10
+        x4 = 0
+        y4 = -10
+        x6, y6 = 0,10
+        x8 = 0
+        y8 =300
+        a = 65
+        b = 90
+        c = 80 
+        d = 100
+        
+        def droite(event):
+            global x1,y1
+            canvas.move(oval,x1,y1)
+         
+        def gauche(event):
+            global x2,y2
+            canvas.move(oval,x2,y2)
+        def bas(event):
+            global x3,y3
+            canvas.move(oval,x3,y3)
+        def haut(event):
+            global x4,y4
+            canvas.move(oval,x4,y4)
+            
+        def niveau2():
+            print("Niveau 2")
+            tk = Tk()
+            tk.geometry("900x500")
+            window.destroy()
+            canvas = Canvas(tk, width=900, height=900, bg="blue")
+            
+            canvas.pack()
+            
+         
+            
+            tk.mainloop()
+        def deplacement():
+            global x,y,cercle,ennemi2,ennemi,cercle1,x5,y5,x6,y6,vitesse1,x8,y8
+            vitesse = 100
+                
+            if canvas.coords(cercle)[1]< 100 or canvas.coords(cercle)[3]>300:
+                y=-1*y
+                
+            if canvas.coords(cercle1)[0] < 100 or canvas.coords(cercle1)[2]> 400:
+                x5=-1*x5
+                
+           
+            canvas.move(ennemi2[0],x5,y5)
+            canvas.move(ennemi2[1],x5,y5)
+            canvas.move(ennemi2[2],x5,y5)
+            canvas.move(ennemi2[3],x5,y5)
+            
+            canvas.move(ennemi[0],x,y)
+            canvas.move(ennemi[1],x,y)
+            canvas.move(ennemi[2],x,y)
+            canvas.move(ennemi[3],x,y)
+            
+            
+            
+            
+        
+            
+            if (len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3])) == 2 and canvas.coords(oval)[0] > 140):
+                print(len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3])))
+                canvas.coords(oval, 50, 50, 90, 90)
+              
+    
+    
+            if(len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]))== 5):
+                canvas.coords(oval, 50, 50, 90, 90)
+                
+                        
+            if(canvas.coords(oval)[0] >= 600.0 and canvas.coords(oval)[0] <= 660.0 and canvas.coords(oval)[1] <= 360.0 and canvas.coords(oval)[1] >= 300.0 and canvas.coords(oval)[2] > 639.0 and  canvas.coords(oval)[2] <= 700.0 and canvas.coords(oval)[3]>= 340.0 and canvas.coords(oval)[3]<= 400.0):
+                i = 30
+                canvas.create_text(745,22,text="Score: "+str(i),fill="red",font=("Courier",20))
+                label = Label(window,text="Niveau 1 terminée !",font=("Courier",30),fg="black")
+          
+                label.pack()
+                
+                
+            if(canvas.coords(oval)[0] >= 70.0 and canvas.coords(oval)[0] <= 80.0  and canvas.coords(oval)[1] >= 300.0  and canvas.coords(oval)[1] <= 330.0  and canvas.coords(oval)[2] >= 110.0 and canvas.coords(oval)[2] <= 120.0 and canvas.coords(oval)[3]>= 340.0 and canvas.coords(oval)[3]<= 370.0 ):
+                i = 30
+                canvas.create_text(745,22,text="Score: "+str(i),fill="red",font=("Courier",20))
+                canvas.create_text(300,300,text="Score:"+str(i),fill="red",font=("Courier",50))
+                label = Label(window,text="Niveau 1 terminée !",font=("Courier",30),fg="black")
+                label.pack()
+            
+            
+            # else:
+            #     # # print(canvas.coords(cercle)[0], "x1: cercle")
+            #     # print(canvas.coords(oval)[0],"x1: rect" )
+            #     # # print(canvas.coords(cercle)[1], "y1: cercle")
+            #     # print(canvas.coords(oval)[1],"y1: rect" )
+            #     # # print(canvas.coords(cercle)[2], "x2: cercle")
+            #     # print(canvas.coords(oval)[2],"x2: rect" )
+            #     # # print(canvas.coords(cercle)[3], "y2: cercle")
+            #     # print(canvas.coords(oval)[3],"y2: rect" )
+            #     # print("Pas de collision")
+            #     # 
+            
+            frame.after(vitesse,deplacement)
+            
+        
+        
+        x = 0
+        y = -5
+        x5 = 10
+        y5 = 0
+        
+        
+        
+        POSX = 300
+        POSY = 100
+        
+        dx = 0
+        dy = 0
+        posX = 0
+        posY = 0
+        
+        #Création fenetre
+        window = Tk()
+        window.geometry("900x900")
+        window.title("Hardest Game")
+        window.config(background='#41B77F')
+        
+        
+        
+        frame = Frame(window, bg='black', bd=8)
+        frame.pack()
+        
+        
+        #Creation du canvas 
+        canvas = Canvas(frame, width=800, height=500, bg="black")
+        canvas.create_rectangle(600,300,700,400,fill='green')
+        canvas.create_rectangle(50,50,120,120,fill='green')
+        canvas.create_rectangle(50,300,150,400,fill='green')
+        
+        
+        #Creation du cercle
+        oval = canvas.create_rectangle(posX,posY,posX+20,posY+30,fill='red')
+        canvas.coords(oval, 50, 50, 90, 90)
+        
+        canvas.create_rectangle(50,50,700,400,fill='')
+        
+        #Bordure 
+        canvas.create_rectangle(2,2,800,500,outline="black",width=5)
+        
+       
+        
+        #Ennemi 
+        ennemi = []
+        i = 0
+        while i < 4:
+            cercle = canvas.create_oval(POSX,POSY,POSX+20,POSY+20,fill='blue')
+            ennemi.append(cercle)
+            i+=1
+            POSX+=100
+        
+        
+        POSX1 = 100
+        POSY1 = 150
+        i= 0
+        ennemi2= []
+        while i < 4:
+            cercle1 = canvas.create_oval(POSX1,POSY1,POSX1+20,POSY1+20,fill='blue')
+            ennemi2.append(cercle1)
+            i+=1
+            POSY1+=70
+            
+        POSX2 = 121
+        i=0
+        while i < 29:
+            bordure = canvas.create_oval(POSX2,40,POSX2+20,60,fill='blue')
+            POSX2+=20
+            i+=1
+            
+            
+        
+        POSX3 = 49
+        i=0
+        while i < 28:
+            bordure = canvas.create_oval(POSX3,390,POSX3+20,410,fill='blue')
+            POSX3+=20
+            i+=1
+            
+        POSX3 = 145
+        i=0
+        while i < 4:
+            bordure = canvas.create_oval(POSX3,370,POSX3+20,390,fill='blue')
+            POSX3+=20
+            i+=1
+        POSX3 = 145
+        i=0
+        while i < 1:
+            bordure = canvas.create_oval(POSX3,350,POSX3+20,370,fill='blue')
+            POSX3+=20
+            i+=1
+            
+            
+            
+            
+        POSY3 = 120
+        i=0
+        while i < 14:
+            bordure = canvas.create_oval(39,POSY3,59,POSY3+20,fill='blue')
+            POSY3+=20
+            i+=1
+            
+        
+        #Bordure bas 
+        POSY4 = 60
+        i=0
+        while i < 12:
+            bordure = canvas.create_oval(680,POSY4,700,POSY4+20,fill='blue')
+            POSY4+=20
+            i+=1
+        
+        POSY5 = 60
+        
+    
+        #Coin bordure intèrieur 
+    
+        for i in range(5):
+            POSX6 = 180
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSX6 = 300
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSX6 = 520
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 540
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 560
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 580
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 600
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 620
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+            
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 640
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+        POSY5 = 60
+        for i in range(12):
+            POSX6 = 660
+            bordure = canvas.create_oval(POSX6,POSY5,POSX6+20,POSY5+20,fill='blue')
+            POSY5+=20
+    
+    
+        POSX4 = 59
+        i=0
+        while i < 4:
+            bordure = canvas.create_oval(POSX4,160,POSX4+20,180,fill='blue')
+            POSX4+=20
+            i+=1
+            
+        POSX4 = 60
+        i=0
+        while i < 14:
+            bordure = canvas.create_oval(POSX4,220,POSX4+20,240,fill='blue')
+            POSX4+=20
+            i+=1
+            
+        deplacement()
+        
+
+    
+        
+        #Création
+        
+        #Affichage
+        canvas.pack(expand=YES)
+        
+        
+        #Création du titre 
+        label = Label(window,text="Hardest Game",font=("Courier",30),fg="black")
+        label.pack()
+        
+        #Bouton pour quitter 
+        Button(window, text='Quitter',bg='black', fg='#41B77F', command=window.destroy).pack()
+        
+        
+        Button(window, text='Niveau2',bg='black', fg='#41B77F', command=niveau2).pack()
+        
+        #Récupération des évènements
+        canvas.bind_all('<Right>',droite)
+        canvas.bind_all('<Left>',gauche)
+        canvas.bind_all('<Up>',haut)
+        canvas.bind_all('<Down>',bas)
+        
+        
+        #Affichage fenêtre
+        window.mainloop()
+main = main()
+
+main.main()
