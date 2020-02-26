@@ -1,0 +1,50 @@
+mot_masquee = str(input("Entrez le mot que voulez-faire deviner : "))
+
+
+
+lst_mot_masquee = []
+votre_liste = []
+for i in range(len(mot_masquee)):
+    lst_mot_masquee.append(mot_masquee[i])
+    votre_liste.append("*")
+print("".join(votre_liste))
+
+reste_a_deviner = 1
+nb_erreur = 0
+mot_deviner = []
+new_list = list(set(lst_mot_masquee))
+while reste_a_deviner != 0:
+    deviner_mot = str(input("Entrez une lettre pour deviner le mot "))
+    print(new_list)
+    print(lst_mot_masquee)
+    for i in range(len(lst_mot_masquee)):
+        reste_a_deviner = (len(new_list))
+        if(lst_mot_masquee[i] == deviner_mot):
+            mot_deviner.append(deviner_mot)
+    
+    if(len(deviner_mot)) > 1:
+        if(deviner_mot == mot_masquee):
+            print("vous avez trouvé ! ")
+            break 
+        
+
+    
+    if deviner_mot in new_list:
+        del new_list[new_list.index(deviner_mot)]
+        print("Il vous reste ",reste_a_deviner ,"lettre")
+
+    else:
+        nb_erreur+=1
+        print(nb_erreur)
+        
+    if(len(new_list) == 0):
+        print("Bravo vous avez gagné !")
+        break 
+                
+                
+
+    
+if(nb_erreur == 9):
+    print("perdu")
+
+    
