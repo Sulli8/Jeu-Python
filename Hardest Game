@@ -1,16 +1,11 @@
 from tkinter import *
 from math import *
-import random 
+from random import *
 import time 
 import pygame
 
-# def timer():
-#     second = 60
-#     for i in range(second):
-#         print(second-i)
-#         time.sleep(1)
-# timer()
-    
+
+
 
 def menu(event):
     fen.destroy()
@@ -54,6 +49,9 @@ class main:
         c = 80 
         d = 100
         
+
+
+
         def droite(event):
             global x1,y1
             canvas.move(oval,x1,y1)
@@ -67,22 +65,25 @@ class main:
         def haut(event):
             global x4,y4
             canvas.move(oval,x4,y4)
-            
+     
         def niveau2():
             print("Niveau 2")
             tk = Tk()
             tk.geometry("900x500")
             window.destroy()
             canvas = Canvas(tk, width=900, height=900, bg="blue")
-            
             canvas.pack()
-            
-         
-            
             tk.mainloop()
+            
+            
+        
+        
+
         def deplacement():
-            global x,y,cercle,ennemi2,ennemi,cercle1,x5,y5,x6,y6,vitesse1,x8,y8
-            vitesse = 100
+            global x,y,cercle,ennemi2,ennemi,cercle1,x5,y5,x6,y6,vitesse1,x8,y8,vie
+            vitesse = 50
+            vie = 2
+          
                 
             if canvas.coords(cercle)[1]< 100 or canvas.coords(cercle)[3]>300:
                 y=-1*y
@@ -102,47 +103,163 @@ class main:
             canvas.move(ennemi[3],x,y)
             
             
+          
             
+   #Detection collision 
+                
+                
             
         
+            lst_bordure = [canvas.coords(bordure)[0],canvas.coords(bordure)[1],canvas.coords(bordure)[2],canvas.coords(bordure)[3]]
+            
+            
+            
+              
+            lst_oval =  [canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]]
+            
+            for i in range(len(lst_bordure)):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == lst_bordure[i]:
+                           canvas.coords(oval, 50, 50, 90, 90)
+                  
+            
+     
+                                       
+                        
+            lst_bordure_2 = [canvas.coords(bordure_2)[0],canvas.coords(bordure_2)[1],canvas.coords(bordure_2)[2],canvas.coords(bordure_2)[3]]
+            
+            lst_oval =  [canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]]
+            
+            for i in range(len(lst_bordure_2)):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == lst_bordure_2[i]:
+                           canvas.coords(oval, 50, 50, 90, 90)
+              
+                
+                   
+                        
+            lst_bordure_3 = [canvas.coords(bordure_3)[0],canvas.coords(bordure_3)[1],canvas.coords(bordure_3)[2],canvas.coords(bordure_3)[3]]
+            
+            lst_oval =  [canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]]
+            
+            for i in range(len(lst_bordure_3)):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == lst_bordure_3[i]:
+                           canvas.coords(oval, 50, 50, 90, 90)
+                  
+                
+            lst_bordure_4 = [canvas.coords(bordure_4)[0],canvas.coords(bordure_4)[1],canvas.coords(bordure_4)[2],canvas.coords(bordure_4)[3]]
+            
+            lst_oval =  [canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]]
+            
+            for i in range(len(lst_bordure_4)):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == lst_bordure_4[i]:
+                           canvas.coords(oval, 50, 50, 90, 90)
+                
+            lst_bordure_5 = [canvas.coords(bordure_5)[0],canvas.coords(bordure_5)[1],canvas.coords(bordure_5)[2],canvas.coords(bordure_5)[3]]
+            
+            lst_oval =  [canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]]
+            
+            for i in range(len(lst_bordure_5)):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == lst_bordure_5[i]:
+                           canvas.coords(oval, 50, 50, 90, 90)
+                           
+            
+      
+            for i in range(len(canvas.coords(oval))):
+                if canvas.coords(oval)[i] in [680.0,[x for x in range(60,270,10)],690.0,[x for x in range(90,310,10)]]:
+                    canvas.coords(oval,50,50,90,90)
+                    
+            print(canvas.coords(ennemi[0]))
+            
+            for i in range(len(canvas.coords(ennemi[0]))):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == canvas.coords(ennemi[0])[i]:
+                        print("touché")
+                        i+=1
+                        if i == 4:
+                            canvas.coords(oval,50,50,90,90)
+                            
+            for i in range(len(canvas.coords(ennemi[1]))):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == canvas.coords(ennemi[1])[i]:
+                        print("touché")
+                        i+=1
+                        if i == 4:
+                            canvas.coords(oval,50,50,90,90)
+                            
+            for i in range(len(canvas.coords(ennemi[2]))):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == canvas.coords(ennemi[2])[i]:
+                        print("touché")
+                        i+=1
+                        if i == 4:
+                            canvas.coords(oval,50,50,90,90)
+                            
+            for i in range(len(canvas.coords(ennemi[3]))):
+                for i in range(len(lst_oval)):
+                    if lst_oval[i] == canvas.coords(ennemi[3])[i]:
+                        print("touché")
+                        i+=1
+                        if i == 4:
+                            canvas.coords(oval,50,50,90,90)
+                            
+          
+                            
+
+                    
+                    
+                    
+            
+            
+          
+                        
+          
+                        
             
             if (len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3])) == 2 and canvas.coords(oval)[0] > 140):
-                print(len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3])))
+                
+            (len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3])))
+                
+                for i in range(len(Live)):
+                    canvas.delete(window,Live[i])
+                    vie =vie -1 
+                    Live[i] = [canvas.create_text(745,22,text="Live :"+str(vie-1),fill="red",font=("Courier",20))]
                 canvas.coords(oval, 50, 50, 90, 90)
+            
+                
+                
               
     
     
             if(len(canvas.find_overlapping(canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]))== 5):
+                for i in range(len(Live)):
+                    canvas.delete(window,Live[i])
+                    vie =vie -1 
+                    Live[i] = [canvas.create_text(745,22,text="Live :"+str(vie-1),fill="red",font=("Courier",20))]
                 canvas.coords(oval, 50, 50, 90, 90)
+              
+             
                 
                         
             if(canvas.coords(oval)[0] >= 600.0 and canvas.coords(oval)[0] <= 660.0 and canvas.coords(oval)[1] <= 360.0 and canvas.coords(oval)[1] >= 300.0 and canvas.coords(oval)[2] > 639.0 and  canvas.coords(oval)[2] <= 700.0 and canvas.coords(oval)[3]>= 340.0 and canvas.coords(oval)[3]<= 400.0):
-                i = 30
-                canvas.create_text(745,22,text="Score: "+str(i),fill="red",font=("Courier",20))
+             
                 label = Label(window,text="Niveau 1 terminée !",font=("Courier",30),fg="black")
-          
+                niveau2()
                 label.pack()
                 
-                
+            #     
             if(canvas.coords(oval)[0] >= 70.0 and canvas.coords(oval)[0] <= 80.0  and canvas.coords(oval)[1] >= 300.0  and canvas.coords(oval)[1] <= 330.0  and canvas.coords(oval)[2] >= 110.0 and canvas.coords(oval)[2] <= 120.0 and canvas.coords(oval)[3]>= 340.0 and canvas.coords(oval)[3]<= 370.0 ):
-                i = 30
-                canvas.create_text(745,22,text="Score: "+str(i),fill="red",font=("Courier",20))
-                canvas.create_text(300,300,text="Score:"+str(i),fill="red",font=("Courier",50))
                 label = Label(window,text="Niveau 1 terminée !",font=("Courier",30),fg="black")
+                niveau2()
                 label.pack()
+                
             
             
-            # else:
-            #     # # print(canvas.coords(cercle)[0], "x1: cercle")
-            #     # print(canvas.coords(oval)[0],"x1: rect" )
-            #     # # print(canvas.coords(cercle)[1], "y1: cercle")
-            #     # print(canvas.coords(oval)[1],"y1: rect" )
-            #     # # print(canvas.coords(cercle)[2], "x2: cercle")
-            #     # print(canvas.coords(oval)[2],"x2: rect" )
-            #     # # print(canvas.coords(cercle)[3], "y2: cercle")
-            #     # print(canvas.coords(oval)[3],"y2: rect" )
-            #     # print("Pas de collision")
-            #     # 
+        
+                
             
             frame.after(vitesse,deplacement)
             
@@ -164,6 +281,8 @@ class main:
         posY = 0
         
         #Création fenetre
+        
+        
         window = Tk()
         window.geometry("900x900")
         window.title("Hardest Game")
@@ -179,11 +298,23 @@ class main:
         canvas = Canvas(frame, width=800, height=500, bg="black")
         canvas.create_rectangle(600,300,700,400,fill='green')
         canvas.create_rectangle(50,50,120,120,fill='green')
-        canvas.create_rectangle(50,300,150,400,fill='green')
+        canvas.create_rectangle(50,300,700,400,fill='green')
+        vie = 3
+        Live = [canvas.create_text(745,22,text="Live :"+str(vie),fill="red",font=("Courier",20))]
+        canvas.create_text(650,320,text="Arrivée",fill="white",font=("Courier",20))
+        canvas.create_text(105,320,text="Arrivée",fill="white",font=("Courier",20))
+        canvas.create_text(88,40,text="Départ",fill="white",font=("Courier",20))
         
         
+        
+        jaune = [canvas.create_oval(130,130,150,150,fill='yellow')]
+        
+        
+    
+                    
+      
         #Creation du cercle
-        oval = canvas.create_rectangle(posX,posY,posX+20,posY+30,fill='red')
+        oval = [canvas.create_rectangle(posX,posY,posX+20,posY+30,fill='red')]
         canvas.coords(oval, 50, 50, 90, 90)
         
         canvas.create_rectangle(50,50,700,400,fill='')
@@ -191,16 +322,19 @@ class main:
         #Bordure 
         canvas.create_rectangle(2,2,800,500,outline="black",width=5)
         
+        
+        
        
         
         #Ennemi 
         ennemi = []
-        i = 0
-        while i < 4:
+        lst_oval =  [canvas.coords(oval)[0],canvas.coords(oval)[1],canvas.coords(oval)[2],canvas.coords(oval)[3]]
+        
+        for i in range(4):
             cercle = canvas.create_oval(POSX,POSY,POSX+20,POSY+20,fill='blue')
             ennemi.append(cercle)
-            i+=1
             POSX+=100
+       
         
         
         POSX1 = 100
@@ -214,6 +348,7 @@ class main:
             POSY1+=70
             
         POSX2 = 121
+        #Bordure du haut 
         i=0
         while i < 29:
             bordure = canvas.create_oval(POSX2,40,POSX2+20,60,fill='blue')
@@ -221,50 +356,72 @@ class main:
             i+=1
             
             
-        
+        #Bordure du bas 
         POSX3 = 49
         i=0
         while i < 28:
-            bordure = canvas.create_oval(POSX3,390,POSX3+20,410,fill='blue')
+            bordure_2 = canvas.create_oval(POSX3,390,POSX3+20,410,fill='blue')
             POSX3+=20
             i+=1
+            
+        #Petite bordure en bas
             
         POSX3 = 145
         i=0
         while i < 4:
-            bordure = canvas.create_oval(POSX3,370,POSX3+20,390,fill='blue')
+            bordure_3 = canvas.create_oval(POSX3,370,POSX3+20,390,fill='blue')
             POSX3+=20
             i+=1
         POSX3 = 145
         i=0
+        #Deuxième petite bordure en bas
         while i < 1:
-            bordure = canvas.create_oval(POSX3,350,POSX3+20,370,fill='blue')
+            bordure_4 = canvas.create_oval(POSX3,350,POSX3+20,370,fill='blue')
             POSX3+=20
             i+=1
             
             
-            
-            
+        #Bordure coté gauche 
         POSY3 = 120
         i=0
         while i < 14:
-            bordure = canvas.create_oval(39,POSY3,59,POSY3+20,fill='blue')
+            bordure_5 = canvas.create_oval(40,POSY3,59,POSY3+20,fill='blue')
             POSY3+=20
             i+=1
             
         
-        #Bordure bas 
+        #Bordure coté droit
         POSY4 = 60
         i=0
         while i < 12:
-            bordure = canvas.create_oval(680,POSY4,700,POSY4+20,fill='blue')
+            bordure_6 = canvas.create_oval(680,POSY4,700,POSY4+20,fill='blue')
             POSY4+=20
             i+=1
         
         POSY5 = 60
         
+        
+        def game_over():
+            global dx4,dy4
+            dx4 = 0
+            dy4 = -5
+           
+            canvas.move(rect,dx4,dy4)
+            window.after(10,game_over)
+            
+            
+        y=0
+        while y != 300:
+            rect = canvas.create_rectangle(0,1000+y,800,700,fill='red')
+            if canvas.coords(rect)[1] > 200:
+                
+                canvas.create_text(400,250,text="Game over !!!",fill="black")
+            y+=1
+        
+       
+        
     
-        #Coin bordure intèrieur 
+        Coin trait intèrieur 
     
         for i in range(5):
             POSX6 = 180
@@ -312,7 +469,7 @@ class main:
             POSY5+=20
     
     
-        POSX4 = 59
+      #   POSX4 = 59
         i=0
         while i < 4:
             bordure = canvas.create_oval(POSX4,160,POSX4+20,180,fill='blue')
