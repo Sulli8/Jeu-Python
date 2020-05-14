@@ -1,0 +1,51 @@
+from random import randint
+grille = []
+premiere_ligne = []
+deuxieme_ligne = []
+troisieme_ligne = []
+def remplir_grille(premiere_ligne,deuxieme_ligne,troisieme_ligne,grille):
+    for i in range(3):
+        premiere_ligne.append(randint(0,1))
+        deuxieme_ligne.append(randint(0,1))
+        troisieme_ligne.append(randint(0,1))
+        
+    grille.append(premiere_ligne)
+    grille.append(deuxieme_ligne)
+    grille.append(troisieme_ligne)
+    print(grille)
+remplir_grille(premiere_ligne,deuxieme_ligne,troisieme_ligne,grille)
+
+def affiche_grille(grille):
+    for i in range(len(grille)):
+        print('')
+        for j in range(len(grille[i])):
+            print(grille[i][j],end="")
+
+affiche_grille(grille)
+
+def verification_grille(grille):
+    somme_1 = 0
+    somme_2 = 0
+    nombre_0 = 0
+    nombre_1 = 0
+    
+    for i in range(len(grille)):
+        for j in range(len(grille[i])):
+            if(grille[i][j] == 0):
+                nombre_0+=1
+            if(grille[i][j] == 1):
+                nombre_1+=1
+    if(nombre_0 == 6):
+        somme_1 = 10
+    if(nombre_1 == 5):
+        somme_2 = 20
+    if(somme_1 == 0 and somme_2 == 0):
+        print("\n","PERDU !")
+    print("\n","Il y a",nombre_0,":",0)
+    print("Voici votre somme gagné",somme_1,"euros")
+    
+    print("\n","Il y a",nombre_1,":",1)
+    print("Voici votre somme gagné",somme_2,"euros")
+    
+    
+verification_grille(grille)
